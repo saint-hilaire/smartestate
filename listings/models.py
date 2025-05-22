@@ -1,22 +1,17 @@
+from datetime import date
 from django.db import models
 from django.core.validators import (
     MinValueValidator, MaxValueValidator,
     validate_comma_separated_integer_list
 )
-
-from datetime import date
-
 from broker.models import *
+
 
 # Create your models here.
 
-
-
-
 class Listing(models.Model):
 
-    # TODO: See Feature #346
-    #       Either deprecate this, or implement support for this relation
+    # TODO: Either deprecate this, or implement support for this relation
     #       in our views.
     house = models.ForeignKey('House', on_delete=models.CASCADE, 
         null=True, blank=True)
@@ -24,7 +19,7 @@ class Listing(models.Model):
     apartment = models.ForeignKey('Apartment', on_delete=models.CASCADE, 
         null=True, blank=True)
 
-    # TODO: See Feature #343. Make this ManyToMany?
+    # TODO: Make this ManyToMany?
     contact = models.ForeignKey('broker.Contact', on_delete=models.CASCADE, 
         null=True, blank=True)
     LISTING_TYPE_CHOICES = (
@@ -58,7 +53,7 @@ class Listing(models.Model):
         null=True, blank=True,
         validators=[MinValueValidator(1), MaxValueValidator(128)])
 
-    # TODO: See Feature #383.
+    # TODO?
     number_of_people = models.PositiveIntegerField(default=1,
         null=True, blank=True,
         validators=[MinValueValidator(1), MaxValueValidator(20)])
